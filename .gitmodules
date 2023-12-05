@@ -1,0 +1,3 @@
+[submodule "theROCK"]
+	path = theROCK
+	url = git@github.com:callaunchpad/theROCK.git
