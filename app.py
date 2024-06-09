@@ -37,6 +37,7 @@ def predict():
             print('pass')
             print(results)
             print(outputListInString)
+            # outputListInString.insert(0, start_hold)
             plotAProblem(outputListInString, key="problem", save=True)
             break
     
