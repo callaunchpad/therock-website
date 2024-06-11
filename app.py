@@ -5,9 +5,10 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 from PIL import Image
 
-rnn_dir = 'therock/models/rnn/'
+rnn_dir = 'theROCK/models/rnn/'
 sys.path.append(rnn_dir)
 sys.path.append(os.getcwd()+'/'+rnn_dir)
+print(sys.path)
 from DeepRouteSetHelper import sanityCheckAndOutput, plotAProblem
 from model import n_values, n_a, inference_model, holdIx_to_holdStr, handStringList, predict_and_sample
 
