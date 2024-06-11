@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, render_template
 import numpy as np
 from PIL import Image
 
-rnn_dir = 'theROCK/models/rnn/'
+rnn_dir = 'therock/models/rnn/'
 sys.path.append(rnn_dir)
 sys.path.append(os.getcwd()+'/'+rnn_dir)
 from DeepRouteSetHelper import sanityCheckAndOutput, plotAProblem

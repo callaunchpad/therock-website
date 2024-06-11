@@ -14,8 +14,8 @@ from keras.layers import Dense, Activation, Input, LSTM, Reshape, Lambda, Repeat
 from keras.utils import to_categorical
 from keras import backend as K
 
-rnn_dir = 'theROCK/models/rnn/'
-sys.path.append('theROCK/')
+rnn_dir = 'therock/models/rnn/'
+sys.path.append('therock/')
 sys.path.append(rnn_dir)
 from DeepRouteSetHelper import *
 
