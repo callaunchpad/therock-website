@@ -20,6 +20,7 @@ sys.path.append(rnn_dir)
 from DeepRouteSetHelper import *
 
 
+
 # setterList = []
 # countNumOfErrorUsername = 0
 # for key in MoonBoard_2016_withurl.keys(): 
