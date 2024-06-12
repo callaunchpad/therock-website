@@ -13,7 +13,7 @@ print(sys.path)
 from DeepRouteSetHelper import sanityCheckAndOutput, plotAProblem
 from model import n_values, n_a, inference_model, holdIx_to_holdStr, handStringList, predict_and_sample
 
-app = Flask(__name__, static_url_path="", static_folder="static")
+app = Flask(__name__, static_url_path="", static_folder="./static/images")
 
 @app.route('/')
 def home():
