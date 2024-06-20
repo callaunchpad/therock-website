@@ -25,14 +25,14 @@ def predict():
     Render image of generated route
     """
     start_hold = next(request.form.values())
-    
+
     while True:
         x_initializer = np.zeros((1, 1, n_values))
         x_initializer = np.random.rand(1, 1, n_values) / 100
         a_initializer = np.random.rand(1, n_a) * 150
         c_initializer = np.random.rand(1, n_a) / 2
     
-        results, indices = predict_and_sample(inference_model, x_initializer, a_initializer, c_initializer)
+        results, indices = predict_and_sample(inference_model, start_hold, x_initializer, a_initializer, c_initializer)
         passCheck, outputListInString, outputListInIx = sanityCheckAndOutput(indices, 
                                                                              holdIx_to_holdStr, 
                                                                              handStringList, 
