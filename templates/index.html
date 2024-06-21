@@ -239,10 +239,25 @@
     </div>
     <div class="columns is-centered">
        <!-- Main Input For Receiving Query to our ML -->
-      <form action="{{ url_for('predict')}}"method="post">
+       <form action="{{ url_for('predict')}}"method="post">
       	<input type="text" name="Start Hold" placeholder="Start Hold" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">New Route</button>
       </form>
+    </div>
+    <div class="columns is-centered">
+      <!-- Display Flash Message if error-->
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div style="color: red;">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% endwith %}
+    </div>
+    <div class="columns is-centered">
+      <p>Please enter a valid start hold between rows 4 to 9.</p>
     </div>
   </div>
 </section>
@@ -469,6 +484,9 @@
         <div class="content">
           <p>
             The original model was made by Yi-Shiou Duh and Ray Chang in <a href="https://arxiv.org/abs/2102.01788">Recurrent Neural Network for MoonBoard Climbing Route Classification and Generation</a>. The original code can be found <a href="https://github.com/jrchang612/MoonBoardRNN"> here</a>.
+          </p>
+          <p>
+            We have added functionality for choosing which start hold to generate the route with. Further work can include adding an option for 2 start holds, and displaying the intended beta for the climb.
           </p>
           <p>
             This site is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.

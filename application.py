@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify, render_template, flash, redirect, url
 import numpy as np
 from PIL import Image
 import pickle
+import re
 
 rnn_dir = 'theROCK/models/rnn/'
 sys.path.append(rnn_dir)
@@ -17,6 +18,7 @@ with open("./theROCK/raw_data/holdStr_to_holdIx", 'rb') as f:
     holdStr_to_holdIx = pickle.load(f)
     
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'  # Needed for flash messages and session data
 
 @app.route('/')
 def home():
@@ -33,9 +35,16 @@ def predict():
         start_hold += '-RH'
     else:
         start_hold += '-LH'
+    heightOfFirstHold = [re.findall(r'(\w+?)(\d+)', start_hold.split("-")[0])[0]]
     start_hold = holdStr_to_holdIx.get(start_hold)
-    if not start_hold:
-        flash('Invalid value. Please enter a valid value.')
+    if start_hold is None:
+        flash('Invalid start hold. Please enter a valid start hold.')
+        return redirect(url_for('home'))    
+    if int(heightOfFirstHold[0][1]) > 9:
+        flash('Start hold too high. Please enter a start hold below row 10.')
+        return redirect(url_for('home'))
+    if int(heightOfFirstHold[0][1]) < 4:
+        flash('Start hold too low. Please enter a start hold above row 3.')
         return redirect(url_for('home'))
     
     while True:
@@ -64,10 +73,6 @@ def predict():
 
     return render_template('index.html', board='/static/images/problem.png')
 
-def is_valid(start_hold):
-    # Check that start_hold is not too high/low and it exists
-
-    return value and value.isdigit()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
