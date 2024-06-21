@@ -182,27 +182,17 @@ def predict_and_sample(inference_model, start_hold=None,
     results -- numpy-array of shape (Ty, n_values), matrix of one-hot vectors representing the values generated
     indices -- numpy-array of shape (Ty, 1), matrix of indices representing the values generated
     """
+    # start_hold is an int from 1-278, can't be 0 since 0 is one-hot encoding for end
     if start_hold:
-        print(start_hold)
-        print(holdStr_to_holdIx)
-        start_hold = start_hold.upper()
-        if np.random.choice([0, 1]):
-            start_hold += '-RH'
-        else:
-            start_hold += '-LH'
-        x = holdStr_to_holdIx[start_hold]
-        print(x)
         x_initializer = np.zeros([1, n_values])
-        x_initializer[0][x] = 1
-        # x_initializer = tf.one_hot(x_initializer, n_values)
+        x_initializer[0][start_hold] = 1
         x_initializer = RepeatVector(1)(x_initializer)
+
     # Step 1: Use your inference model to predict an output sequence given x_initializer, a_initializer and c_initializer.
     pred = inference_model.predict([x_initializer, a_initializer, c_initializer])
     # Step 2: Convert "pred" into an np.array() of indices with the maximum probabilities
     indices =  np.argmax(pred, axis = 2)
-    print(indices.shape)
-    print(indices)
-    indices[0] = x
+    indices[0] = start_hold
     # Step 3: Convert indices to one-hot vectors, the shape of the results should be (Ty, n_values)
     results =  to_categorical(indices, num_classes = np.shape(x_initializer)[2])
     
